@@ -9,7 +9,7 @@ package org.grid
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +18,14 @@ package org.grid
  * limitations under the License.
  */
 
-import org.apache.flink.api.scala._
+import org.apache.flink.api.java.hadoop.mapreduce.HadoopInputFormat
+import org.apache.flink.api.scala.{ExecutionEnvironment, _}
+import org.apache.flink.hadoopcompatibility.HadoopInputs
+import org.apache.hadoop.fs.Path
+import org.apache.hadoop.io.ArrayWritable
+import org.apache.hadoop.mapreduce.Job
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
+import org.apache.parquet.avro.AvroParquetInputFormat
 
 /**
  * Skeleton for a Flink Job.
@@ -35,37 +42,21 @@ import org.apache.flink.api.scala._
  * target/scala-2.11/Flink\ Project-assembly-0.1-SNAPSHOT.jar
  *
  */
-object Job {
+
+object Job3 {
+  case class post(title: String)
   def main(args: Array[String]): Unit = {
     // set up the execution environment
+
     val env = ExecutionEnvironment.getExecutionEnvironment
 
-    /**
-     * Here, you can start creating your execution plan for Flink.
-     *
-     * Start with getting some data from the environment, like
-     * env.readTextFile(textPath);
-     *
-     * then, transform the resulting DataSet[String] using operations
-     * like:
-     *   .filter()
-     *   .flatMap()
-     *   .join()
-     *   .group()
-     *
-     * and many more.
-     * Have a look at the programming guide:
-     *
-     * http://flink.apache.org/docs/latest/programming_guide.html
-     *
-     * and the examples
-     *
-     * http://flink.apache.org/docs/latest/examples.html
-     *
-     */
+    val job = Job.getInstance()
+    val parquetPath: String = "/path_to_file_dir/parquet_0000"
 
-
-    // execute program
+//    val hadoopInputFormat: HadoopInputFormat[Void, ArrayWritable] = HadoopInputs.readHadoopFile(new MapredParquetInputFormat(), classOf[Void], classOf[ArrayWritable], parquetPath)
+//    val stream: DataStream[(Void, ArrayWritable)] = streamExecutionEnvironment.createInput(hadoopInputFormat).map { record =>
+//      // process the record here ...
+//    }
     env.execute("Flink Scala API Skeleton")
   }
 }

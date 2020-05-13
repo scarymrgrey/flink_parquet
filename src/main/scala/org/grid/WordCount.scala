@@ -10,19 +10,10 @@ object WordCount {
       val env = ExecutionEnvironment.getExecutionEnvironment
 
       // get input data
-      val text = env.readTextFile("src/main/resources/dummy.txt")
-      val counts = text
-        .flatMap {
-        _.toLowerCase.split(" ")
-      }
-        .mapPartition { in => in map { (_, 1) } }
+      val text = env.readTextFile("https://redshift-downloads.s3.amazonaws.com/TPC-DS/100GB/call_center/call_center.dat.0000.gz")
+      val counts = text.count()
 
-        .groupBy(0)
-
-        .sum(1)
-        .sortPartition(1, Order.ASCENDING)
-
-      counts.print()
+      counts
     }
   }
 

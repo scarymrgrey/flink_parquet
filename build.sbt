@@ -15,6 +15,12 @@ val flinkVersion = "1.10.0"
 
 val flinkDependencies = Seq(
   "org.apache.flink" %% "flink-scala" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-parquet" % flinkVersion % "provided",
+  "org.apache.flink" %% "flink-hadoop-compatibility" % flinkVersion % "provided",
+  "org.apache.flink" % "flink-avro" % "1.10.1",
+  "org.apache.parquet" % "parquet-avro" % "1.11.0",
+  "com.github.mjakubowski84" %% "parquet4s-core" % "1.0.0",
+  "org.apache.hadoop" % "hadoop-client" % "2.4.0",
   "org.apache.flink" %% "flink-streaming-scala" % flinkVersion % "provided")
 
 lazy val root = (project in file(".")).
